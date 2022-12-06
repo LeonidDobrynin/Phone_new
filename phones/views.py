@@ -8,14 +8,36 @@ def index(request):
 
 
 def show_catalog(request):
+    sorting = request.GET["sort"]
     template = 'catalog.html'
-    phone = Phone.objects.all()
-    context = {'phone':phone}
+    if sorting != None:
+        if sorting == 'name':
+            phones = Phone.objects.order_by('name')
+            print(phones)
+            context = {'phones': phones}
+
+        if sorting == 'min_price':
+            phones = Phone.objects.order_by('price')
+            print(phones)
+            context = {'phones': phones}
+
+        if sorting == 'max_price':
+            phones = Phone.objects.order_by('-price')
+            print(phones)
+            context = {'phones': phones}
+
+
+    else:
+        phones = Phone.objects.all()
+        print(phones)
+        context = {'phones':phones}
     return render(request, template, context)
 
 
 def show_product(request, slug):
     template = 'product.html'
-    phone = Phone.object.filter(slug=slug)
+    phones = Phone.objects.filter(slug=slug)
+    for phone in phones:
+        print(phone)
     context = {'phone':phone}
     return render(request, template, context)
