@@ -8,7 +8,7 @@ def index(request):
 
 
 def show_catalog(request):
-    sorting = request.GET.get["sort"]
+    sorting = request.GET.get("sort")
     template = 'catalog.html'
     if sorting is not None:
         if sorting == 'name':
